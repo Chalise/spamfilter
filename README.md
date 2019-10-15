@@ -2,12 +2,23 @@
 Machine-learning spam filter
 
 API implemented in Flask-Restful, python3. Served with gunicorn.
+Also includes a React client created with create-react-app.
 
-API in debug mode:
-$ python3 api.py
+Setup and Usage on Linux
+========================
 
-API with gunicorn:
-$ gunicorn --bind 0.0.0.0 api.api:app
+1. Set up Nginx according to vendor instructions.
+2. Install pipenv, used for managing python dependencies.
+3. Place nginx/spamfilter site configuration to your Nginx configuration. Restart Nginx
+   Note you may need to adjust the server root location.
+4. Start API
+   
+       $ pipenv run gunicorn --bind 0.0.0.0 api.api:app
 
-With gunicorn you can then try:
-curl -X POST http://127.0.0.1:8000/spam
+5. Make a client build
+
+       $ cd ui
+       $ npm run
+
+6. Profit!
+   (Better instructions coming later)
