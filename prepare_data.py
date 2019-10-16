@@ -98,7 +98,7 @@ def prepare_data(emailtext):
             # word = findNumber(word)
             for i in word:
                 content.append(i)
-    print(content)
+
     return content
 
 
@@ -111,7 +111,7 @@ def build_features(dictionary):
     features_matrix = np.zeros((1, len(dictionary)))
     for word in dictionary:
         d[word] = d.get(word, 0) + 1
-    print(d)
+
     return d
 
 
