@@ -17,8 +17,8 @@ class Spam(Resource):
         # Placeholder functionality
         # Just returns true/false randomly
         answer = bool(random.getrandbits(1))
-        message = request.json["email"]
-
+        message = request.form.get("email")
+        print(message)
         return {"spam": answer}
 
 api.add_resource(HelloWorld, '/', '/hello')
