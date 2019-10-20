@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 from flask import Flask
-from flask_restful import Resource, Api
+from flask_restful import Resource, Api, request
 
 import random
 
@@ -17,6 +17,8 @@ class Spam(Resource):
         # Placeholder functionality
         # Just returns true/false randomly
         answer = bool(random.getrandbits(1))
+        message = request.json["email"]
+
         return {"spam": answer}
 
 api.add_resource(HelloWorld, '/', '/hello')

@@ -18,7 +18,8 @@ Setup and Usage on Linux
 5. Make a client build
 
        $ cd ui
-       $ npm run
+       $ npm install -i
+       $ npm run-script build
 
 6. Profit!
    (Better instructions coming later)
