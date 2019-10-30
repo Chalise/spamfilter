@@ -7,8 +7,6 @@ import os
 import random
 import prepare_data
 
-
-# dictionary function
 def dictionary(words):
     # creates list for dictionary words
     spamdict = dict([(word, True) for word in words])
@@ -18,7 +16,7 @@ def dictionary(words):
 
 # This function is going to teach naive bayes to differentiate spam and non-spma
 def get_classifier():
-    training_data1 = "spamdata/nonspam-train"
+    training_data1 = "spamdata/training_set/nonspam-train"
     nonspam_list = []
     combined_list = []
 
@@ -33,7 +31,7 @@ def get_classifier():
                 # words are added to nonspam list and dictionary
                 nonspam_list.append((dictionary(words), 'nonspam'))
 
-    training_data2 = "spamdata/spam-train"
+    training_data2 = "spamdata/training_set/spam-train"
     spam_list = []
     # for loop that goes through training files for spam
     for directories, subdirs, files in os.walk(training_data2):
@@ -45,33 +43,33 @@ def get_classifier():
                 words = word_tokenize(data)
                 # words are added to spam list and dictionary
                 spam_list.append((dictionary(words), 'spam'))
-    # print(nonspam_list[0])
-    # print(spam_list[0])
 
+
+    print("Non spam list before extention",len(nonspam_list))
+    print(" spam list ", len(nonspam_list))
     # compined spam and nonspam lists for training
-    combine_list = {[nonspam_list] + [spam_list]}
+    combine_list = nonspam_list.extend(spam_list)
+
+    print("Non spam list after extention", len(nonspam_list))
     # suffle the list before training
-    random.shuffle(combined_list)
-    # gets testdata function
-    test = testdata()
+    random.shuffle(nonspam_list)
 
     # calls naive bayes classifier and trains it
-    classifier = NaiveBayesClassifier.train(combined_list)
+    classifier = NaiveBayesClassifier.train(nonspam_list)
 
-    # counts classifiers accurasy using testing set
-    Accuracy = nltk.classify.util.accuracy(classifier, test)
-    print("Accuracy is: ", Accuracy * 100)
+    #gets testdata function
+    test = testdata()
+
+
     # returns
     return classifier
+
 
 
 # function that makes testset ready for use
 def testdata():
     test_set = 'spamdata/testing_set'
-
-
     testlist=[]
-
     for directories, subdirs, files in os.walk(test_set):
         for filename in files:
             with open(os.path.join(directories, filename), encoding="latin-1") as f:
@@ -83,14 +81,13 @@ def testdata():
                 testlist.append(tst)
     return testlist
 
-
 # function for clients emails for real time checks
 def realtimeclassification(classifier, email):
-    testset = testdata()
     words = prepare_data.prepare_data(email)
     feature = dictionary(words)
     print("Message is: ", classifier.classify(feature))
 
 
 
-realtimeclassification(get_classifier(),"Hi i am testing email, am i spam ?")
+trained_classifier= get_classifier()
+realtimeclassification(trained_classifier,"Hi i am testing email, am i email ?")
