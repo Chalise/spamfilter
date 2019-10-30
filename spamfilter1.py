@@ -18,7 +18,7 @@ def dictionary(words):
 def get_classifier():
     training_data1 = "spamdata/training_set/nonspam-train"
     nonspam_list = []
-    combined_list = []
+
 
     # for loop that goes through training files for non-spam
     for directories, subdirs, files in os.walk(training_data1):
@@ -48,7 +48,7 @@ def get_classifier():
     print("Non spam list before extention",len(nonspam_list))
     print(" spam list ", len(nonspam_list))
     # compined spam and nonspam lists for training
-    combine_list = nonspam_list.extend(spam_list)
+    nonspam_list.extend(spam_list)
 
     print("Non spam list after extention", len(nonspam_list))
     # suffle the list before training
@@ -59,7 +59,7 @@ def get_classifier():
 
     #gets testdata function
     test = testdata()
-
+    classifier.show_most_informative_features(100)
 
     # returns
     return classifier
@@ -85,9 +85,25 @@ def testdata():
 def realtimeclassification(classifier, email):
     words = prepare_data.prepare_data(email)
     feature = dictionary(words)
-    print("Message is: ", classifier.classify(feature))
+    classified_email=classifier.classify(feature)
+
+    dist = classifier.prob_classify(feature)
+    print(dist)
+    print(list(dist.samples()))
+    print("Non Spam Prob.",dist.prob("nonspam"))
+    print(" Spam Prob.",dist.prob("spam"))
+
+    print("Message is: ",classified_email)
 
 
 
 trained_classifier= get_classifier()
-realtimeclassification(trained_classifier,"Hi i am testing email, am i email ?")
+realtimeclassification(trained_classifier,"Pre-release: Due to the transfer of the Leppävaara data center and network to"+
+                                          " Myllypuro, ALL Metropolia's network and IT services will be closed on Friday, October 11, "+
+                                          "2019 at 16.00. It is estimated that the move will be completed by 15.10. The break also applies"+
+                                          " to HAKA login and Eduroam service. According to estimates, most services will be available "+
+                                          "during the weekend, but unexpected outages may occur at that time."+
+                                          "Communication on this issue will be intensified in the coming weeks. During the removal,"+
+                                          " the situation will be announced at a later in Tilannehuone-web site http://metropoliamuuttaa.fi."+
+                                          "We apologize for the inconvenience caused by this removal"+
+                                          "Br,Tuomas Orama Development manager ICT-services")
