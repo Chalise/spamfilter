@@ -106,4 +106,4 @@ realtimeclassification(trained_classifier,"Pre-release: Due to the transfer of t
                                           "Communication on this issue will be intensified in the coming weeks. During the removal,"+
                                           " the situation will be announced at a later in Tilannehuone-web site http://metropoliamuuttaa.fi."+
                                           "We apologize for the inconvenience caused by this removal"+
-                                          "Br,Tuomas Orama Development manager ICT-services")
+                                          "Br,Tuomas Orama Development     manager ICT-services")
