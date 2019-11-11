@@ -9,6 +9,8 @@ verify_ssl = true
 gunicorn = "*"
 flask = "*"
 flask-restful = "*"
+numpy = "*"
+nltk = "*"
 
 [requires]
 python_version = "3.6"

@@ -3,10 +3,15 @@
 from flask import Flask
 from flask_restful import Resource, Api, request
 
+from backend import prepare_data
+from backend import spamfilter
+
 import random
 
 app = Flask(__name__)
 api = Api(app)
+
+classifier = spamfilter.get_classifier()
 
 class HelloWorld(Resource):
     def get(self):
@@ -14,11 +19,8 @@ class HelloWorld(Resource):
 
 class Spam(Resource):
     def post(self):
-        # Placeholder functionality
-        # Just returns true/false randomly
-        answer = bool(random.getrandbits(1))
-        message = request.form.get("email")
-        print(message)
+        message = request.json.get("email")
+        answer = classifier.classify(spamfilter.dictionary(prepare_data.prepare_data(message)))
         return {"spam": answer}
 
 api.add_resource(HelloWorld, '/', '/hello')
