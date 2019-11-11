@@ -10,8 +10,11 @@ import random
 
 app = Flask(__name__)
 api = Api(app)
+classifier = None
 
+print("Training the classifier. This may take some time...")
 classifier = spamfilter.get_classifier()
+print("Classifier trained!")
 
 class HelloWorld(Resource):
     def get(self):

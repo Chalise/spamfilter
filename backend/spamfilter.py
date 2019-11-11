@@ -5,7 +5,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 import os
 import random
-import prepare_data
+from backend import prepare_data
 
 def dictionary(words):
     # creates list for dictionary words
