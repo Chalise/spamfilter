@@ -62,7 +62,7 @@ def findURL(urltext):
 
 
 def findNumber(num):
-    numb = re.findall("[^a-zA-Z:][-+]?\d+[\.]?\d*", num.__str__().__str__())
+    numb = re.findall("[^a-zA-Z:][-+]?\d+[\.]?\d*", num)
 
     if numb:
         return "number"
@@ -93,9 +93,10 @@ def prepare_data(emailtext):
             word = findURL(word)
             # Normalizing Email Addresses
             word = findemail(word)
+            word = findNumber(word)
             # Removal of non-words
             word = re.compile('\w+').findall(word)
-            # word = findNumber(word)
+            
             for i in word:
                 content.append(i)
 
