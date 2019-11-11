@@ -96,14 +96,15 @@ def realtimeclassification(classifier, email):
     print("Message is: ",classified_email)
 
 
+if __name__ == '__main__':
+    trained_classifier= get_classifier()
+    realtimeclassification(trained_classifier,"Pre-release: Due to the transfer of the Leppävaara data center and network to"+
+                                              " Myllypuro, ALL Metropolia's network and IT services will be closed on Friday, October 11, "+
+                                              "2019 at 16.00. It is estimated that the move will be completed by 15.10. The break also applies"+
+                                              " to HAKA login and Eduroam service. According to estimates, most services will be available "+
+                                              "during the weekend, but unexpected outages may occur at that time."+
+                                              "Communication on this issue will be intensified in the coming weeks. During the removal,"+
+                                              " the situation will be announced at a later in Tilannehuone-web site http://metropoliamuuttaa.fi."+
+                                              "We apologize for the inconvenience caused by this removal"+
+                                              "Br,Tuomas Orama Development     manager ICT-services")
 
-trained_classifier= get_classifier()
-realtimeclassification(trained_classifier,"Pre-release: Due to the transfer of the Leppävaara data center and network to"+
-                                          " Myllypuro, ALL Metropolia's network and IT services will be closed on Friday, October 11, "+
-                                          "2019 at 16.00. It is estimated that the move will be completed by 15.10. The break also applies"+
-                                          " to HAKA login and Eduroam service. According to estimates, most services will be available "+
-                                          "during the weekend, but unexpected outages may occur at that time."+
-                                          "Communication on this issue will be intensified in the coming weeks. During the removal,"+
-                                          " the situation will be announced at a later in Tilannehuone-web site http://metropoliamuuttaa.fi."+
-                                          "We apologize for the inconvenience caused by this removal"+
-                                          "Br,Tuomas Orama Development     manager ICT-services")
