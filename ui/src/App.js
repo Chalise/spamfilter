@@ -28,13 +28,21 @@ function Form(props) {
 
 function Results(props) {
     if (props.spam == null) {
-        return <p>No values here</p>;
+        return null;
     }
     
     if (props.spam == 'spam') {
-        return <p>It is spam</p>;
+        return (
+	    <div className="results warning">
+		<p>It is spam!</p>
+	    </div>
+	);
     } else if ( props.spam == 'nonspam') {
-        return <p>It is not spam</p>
+        return (
+	    <div className="results note">
+		<p>It is ham.</p>
+	    </div>
+	);
     }
 }
 
@@ -44,10 +52,7 @@ function App() {
     return (
         <div className="App">
             <Form setspam={setSpam} />
-
-            <div className="results">
-                <Results spam={isSpam}/>
-            </div>
+            <Results spam={isSpam}/>
         </div>
     );
 }
