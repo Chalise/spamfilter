@@ -11,7 +11,7 @@ flask = "*"
 flask-restful = "*"
 numpy = "*"
 nltk = "*"
-pickle = "*"
+supervisor = "*"
 
 [requires]
 python_version = "3.6"
