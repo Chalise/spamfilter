@@ -32,7 +32,13 @@ class SpamFilter:
         :param message: String message to classify.
         :returns: Classification from the classifier.
         """
-        result self.classifier.classify(self.__dictionary(prepare_data.prepare_data(message)))
+        self.classifier.classify(self.__dictionary(prepare_data.prepare_data(message)))
+
+    def show_most_informative_features(self, n=10):
+        """
+        Show the most informative features for the classifier.
+        """
+        self.classifier.show_most_informative_features(n)
 
     def process_training_data(self):
         """
@@ -42,21 +48,23 @@ class SpamFilter:
         :returns: Training data usable for training classifiers.
         """
         print("Processing training data. This may take a while..")
-        nonspam_list = __classify_dataset(HAM, 'nonspam')
-        spam_list = __classify_dataset(SPAM, 'spam')
+        nonspam_list = self.__classify_dataset(HAM, 'nonspam')
+        spam_list = self.__classify_dataset(SPAM, 'spam')
         
         print("Ham elements: ", len(nonspam_list))
         print("Spam elements: ", len(spam_list))
         
         combined_list = nonspam_list + spam_list
         print("Total elements: ", len(combined_list))
-        __save_data(combined_list)
+        self.__save_data(combined_list)
         
         return combined_list
 
     def __get_classifier(self):
         """
-        Return a trained classifier
+        Return a trained classifier.
+
+        :returns: a trained classifier.
         """
         # Process training data only if we have no saves
         # This takes a long time so we want to prevent this usually
@@ -65,22 +73,18 @@ class SpamFilter:
             training_data = self.__load_data()
         else:
             print("No saved data found. Creating from scratch..")
-            training_data = process_training_data()
+            training_data = self.process_training_data()
 
-        # calls naive bayes classifier and trains it
         classifier = NaiveBayesClassifier.train(training_data)
-            
+        print("Classifier trained!")
+        
         #gets testdata function
         #TODO: Actually do something with the test data
         #test = testdata()
-        print("Classifier trained!")
-        print("Most informative features: ")
-        classifier.show_most_informative_features(40)
 
-        # returns
         return classifier
 
-    def __classify_dataset(data_dir, label):
+    def __classify_dataset(self, data_dir, label):
         """
         Tokenize and classify training data in the specified directory.
         
@@ -93,7 +97,7 @@ class SpamFilter:
                 with open(os.path.join(directories, filename), encoding="latin-1") as f:
                     data = f.read()
                     words = word_tokenize(data)
-                    results.append((__dictionary(words), label))
+                    results.append((self.__dictionary(words), label))
 
         return results
 
@@ -104,10 +108,20 @@ class SpamFilter:
         return results
     
     def __save_data(self, obj):
+        """
+        Save training data to savefile.
+
+        :param obj: Object to be saved.
+        """
         with open(SAVE_DATA, 'wb') as f:
             pickle.dump(obj, f)
 
     def __load_data(self):
+        """
+        Load training data from savefile.
+
+        :returns: Save-data object.
+        """
         with open(SAVE_DATA, 'rb') as f:
             return pickle.load(f)
 
