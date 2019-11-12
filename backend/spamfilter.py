@@ -24,7 +24,7 @@ class SpamFilter:
     def __init__(self):
         self.classifier = self.__get_classifier()
 
-    def classify(self, classifier, message):
+    def classify(self, message):
         """
         Classify the given message with the given classifier.
         
@@ -32,13 +32,13 @@ class SpamFilter:
         :param message: String message to classify.
         :returns: Classification from the classifier.
         """
-        self.classifier.classify(self.__dictionary(prepare_data.prepare_data(message)))
+        return self.classifier.classify(self.__dictionary(prepare_data.prepare_data(message)))
 
-    def show_most_informative_features(self, n=10):
+    def show_most_informative_features(self, rows=10):
         """
         Show the most informative features for the classifier.
         """
-        self.classifier.show_most_informative_features(n)
+        self.classifier.show_most_informative_features(rows)
 
     def process_training_data(self):
         """

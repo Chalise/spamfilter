@@ -12,8 +12,9 @@ api = Api(app)
 classifier = None
 
 print("Training the classifier. This may take some time...")
-classifier = spamfilter.SpamFilter
+classifier = spamfilter.SpamFilter()
 print("Classifier trained!")
+classifier.show_most_informative_features()
 
 class HelloWorld(Resource):
     def get(self):
