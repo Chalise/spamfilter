@@ -17,10 +17,14 @@ function Form(props) {
             console.log(error);
         });
     };
+
+    const resetState = () => {
+        props.setspam(null);
+    }
     
     return (
         <div className="form">
-	    <textarea id="email"></textarea><br/>
+	    <textarea id="email" placeholder="Paste email here..." onChange={resetState}></textarea><br/>
 	    <button onClick={getSpamminess}>Evaluate</button>
 	</div>
     );
@@ -28,7 +32,9 @@ function Form(props) {
 
 function Results(props) {
     if (props.spam == null) {
-        return null;
+        return (
+            <div className="results none"></div>
+        );
     }
     
     if (props.spam == 'spam') {
@@ -51,6 +57,7 @@ function App() {
     
     return (
         <div className="App">
+            <h1>Machine-Learning Spam Filter</h1>
             <Form setspam={setSpam} />
             <Results spam={isSpam}/>
         </div>

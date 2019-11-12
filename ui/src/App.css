@@ -1,5 +1,31 @@
+body {
+  background-color: #8eebee;
+}
+
+textarea {
+  resize: none;
+  width: 760px;
+}
+
+button {
+  background-color: #f3c195;
+  border: none;
+  color: #a85913;
+  font-size: medium;
+  font-weight: bold;
+  height: 40px;
+  width: 766px;
+}
+
 .App {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.3);
+  height: 240px;
+  margin: 0 auto;
+  padding: 10px;
   text-align: center;
+  width: 800px;
 }
 
 .App-logo {
@@ -7,16 +33,44 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  background-color: #282c34;
   color: white;
+  display: flex;
+  font-size: calc(10px + 2vmin);
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100vh;
 }
 
 .App-link {
   color: #09d3ac;
 }
+
+.results {
+  border-radius: 8px;
+  margin: 0 auto;
+  width: 766px;
+}
+
+.none {
+  opacity: 0;
+  -webkit-transition: 0.5s;
+}
+
+.note {
+  background-color: #a0cfee;
+  border-color: #3498db;
+  color: #1d6fa5;
+  opacity: 1;
+  -webkit-transition: 0.5s;
+}
+
+.warning {
+  background-color: #f5b4ae;
+  border-color: #e74c3c;
+  color: #bf2718;
+  opacity: 1;
+  -webkit-transition: 0.5s;
+}
+
