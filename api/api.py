@@ -3,7 +3,6 @@
 from flask import Flask
 from flask_restful import Resource, Api, request
 
-from backend import prepare_data
 from backend import spamfilter
 
 import random
@@ -13,7 +12,7 @@ api = Api(app)
 classifier = None
 
 print("Training the classifier. This may take some time...")
-classifier = spamfilter.get_classifier()
+classifier = spamfilter.SpamFilter
 print("Classifier trained!")
 
 class HelloWorld(Resource):
@@ -23,7 +22,7 @@ class HelloWorld(Resource):
 class Spam(Resource):
     def post(self):
         message = request.json.get("email")
-        answer = classifier.classify(spamfilter.dictionary(prepare_data.prepare_data(message)))
+        answer = classifier.classify(message)
         return {"spam": answer}
 
 api.add_resource(HelloWorld, '/', '/hello')
