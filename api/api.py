@@ -23,8 +23,8 @@ class HelloWorld(Resource):
 class Spam(Resource):
     def post(self):
         message = request.json.get("email")
-        answer = classifier.classify(message)
-        return {"spam": answer}
+        answer, probability = classifier.classify(message)
+        return {"spam": answer, "probability": probability}
 
 api.add_resource(HelloWorld, '/', '/hello')
 api.add_resource(Spam, '/spam')

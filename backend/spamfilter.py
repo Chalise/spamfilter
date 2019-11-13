@@ -30,9 +30,13 @@ class SpamFilter:
         
         :param classifier: A trained classifier.
         :param message: String message to classify.
-        :returns: Classification from the classifier.
+        :returns: Tuple in form (class_label, probability).
         """
-        return self.classifier.classify(self.__dictionary(prepare_data.prepare_data(message)))
+        featureset = self.__dictionary(prepare_data.prepare_data(message))
+        label = self.classifier.classify(featureset)
+        probability = self.classifier.prob_classify(featureset).prob(label)
+        
+        return (label, probability)
 
     def show_most_informative_features(self, rows=10):
         """

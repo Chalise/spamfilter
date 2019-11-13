@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import './App.css';
 import axios from 'axios';
 
+const TRESHOLD = 0.8;
+
 function Form(props) {
     const getSpamminess = () => {
         let message = document.getElementById("email").value;
@@ -11,8 +13,14 @@ function Form(props) {
         {
             headers: {'Content-Type': 'application/json'}
 	}).then((response) => {
-            console.log(response.data.spam);
-            props.setspam(response.data.spam);
+            console.log(response.data);
+            let label  = response.data.spam;
+            let probability = response.data.probability;
+            if (label == 'spam' && probability < TRESHOLD) {
+                props.setspam('nonspam')
+            } else {
+                props.setspam(label);
+            }
         }, (error) => {
             console.log(error);
         });
