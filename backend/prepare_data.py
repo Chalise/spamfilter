@@ -102,19 +102,3 @@ def prepare_data(emailtext):
 
     return content
 
-
-
-
-def build_features(dictionary):
-    # Read the file names
-    d = {}
-    # ndarray to have the features
-    features_matrix = np.zeros((1, len(dictionary)))
-    for word in dictionary:
-        d[word] = d.get(word, 0) + 1
-
-    return d
-
-
-dictionary = prepare_data("hi how ARE YOU IS EVERY THING IS OK")
-build_features(dictionary)
