@@ -8,11 +8,8 @@ all:
 	yum install -y nodejs nginx python3 python-pip
 	pip install pipenv
 	pipenv install
-	@(echo "Setting up API")
-	pipenv shell
 	supervisord
-	supervisorctl start api
-	@(echo "Setting up web client..")
+	@(echo "Setting up front end..")
 	\cp -f nginx/spamfilter /etc/nginx/nginx.conf
 	if [[ ! ( -f /etc/pki/tls/private/server.key && -f /etc/pki/tls/certs/server.crt ) ]] ; \
         then \
@@ -23,3 +20,5 @@ all:
 	service nginx restart
 	cd ..
 	@(echo "Deployment complete!")
+	@(echo "At the project root, run 'pipenv shell' to import development environment,")
+	@(echo "then start the api with 'supervisorctl start api'")
